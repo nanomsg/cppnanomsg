@@ -153,48 +153,48 @@ namespace nn
                 throw nn::exception ();
         }
 
-        inline bool send (const void *buf, size_t len, int flags)
+        inline int send (const void *buf, size_t len, int flags)
         {
             int rc = nn_send (s, buf, len, flags);
             if (nn_slow (rc < 0)) {
                 if (nn_slow (nn_errno () != EAGAIN))
                     throw nn::exception ();
-                return false;
+                return -1;
             }
-            return true;
+            return rc;
         }
 
-        inline bool recv (void *buf, size_t len, int flags)
+        inline int recv (void *buf, size_t len, int flags)
         {
             int rc = nn_recv (s, buf, len, flags);
             if (nn_slow (rc < 0)) {
                 if (nn_slow (nn_errno () != EAGAIN))
                     throw nn::exception ();
-                return false;
+                return -1;
             }
-            return true;
+            return rc;
         }
 
-        inline bool sendmsg (const struct nn_msghdr *msghdr, int flags)
+        inline int sendmsg (const struct nn_msghdr *msghdr, int flags)
         {
             int rc = nn_sendmsg (s, msghdr, flags);
             if (nn_slow (rc < 0)) {
                 if (nn_slow (nn_errno () != EAGAIN))
                     throw nn::exception ();
-                return false;
+                return -1;
             }
-            return true;
+            return rc;
         }
 
-        inline bool recvmsg (struct nn_msghdr *msghdr, int flags)
+        inline int recvmsg (struct nn_msghdr *msghdr, int flags)
         {
             int rc = nn_recvmsg (s, msghdr, flags);
             if (nn_slow (rc < 0)) {
                 if (nn_slow (nn_errno () != EAGAIN))
                     throw nn::exception ();
-                return false;
+                return -1;
             }
-            return true;
+            return rc;
         }
 
     private:
