@@ -65,24 +65,6 @@ namespace nn
         nn_version (major, minor, patch);
     }
 
-    class context
-    {
-    public:
-
-        inline context ()
-        {
-            int rc = nn_init ();
-            if (nn_slow (rc != 0))
-                throw nn::exception ();
-        }
-
-        inline ~context ()
-        {
-            int rc = nn_term ();
-            assert (rc == 0);
-        }
-    };
-
     inline void *allocmsg (size_t size, int type)
     {
         void *msg = nn_allocmsg (size, type);
@@ -205,6 +187,11 @@ namespace nn
         socket (const socket&);
         void operator = (const socket&);
     };
+
+    inline void term ()
+    {
+        nn_term ();
+    }
 
 }
 

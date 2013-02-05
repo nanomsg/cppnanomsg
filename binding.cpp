@@ -24,10 +24,10 @@
 
 #include <nanomsg/pair.h>
 
+#include <cassert>
+
 int main ()
 {
-    nn::context ctx;
-
     nn::socket s1 (AF_SP, NN_PAIR);
     s1.bind ("inproc://a");
     nn::socket s2 (AF_SP, NN_PAIR);
@@ -35,7 +35,8 @@ int main ()
 
     s2.send ("ABC", 3, 0);
     char buf [3];
-    s1.recv (buf, sizeof (buf), 0);
+    int rc = s1.recv (buf, sizeof (buf), 0);
+    assert (rc == 3);
 
     return 0;
 }
