@@ -60,9 +60,9 @@ namespace nn
         int err;
     };
 
-    inline void version (int *major, int *minor, int *patch)
+    inline const char *symbol (int i, int *value)
     {
-        nn_version (major, minor, patch);
+        return nn_symbol (i, value);
     }
 
     inline void *allocmsg (size_t size, int type)
