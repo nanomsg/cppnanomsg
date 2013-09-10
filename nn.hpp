@@ -70,6 +70,7 @@ namespace nn
         void *msg = nn_allocmsg (size, type);
         if (nn_slow (!msg))
             throw nn::exception ();
+        return msg;
     }
 
     inline int freemsg (void *msg)
@@ -77,6 +78,7 @@ namespace nn
         int rc = nn_freemsg (msg);
         if (nn_slow (rc != 0))
             throw nn::exception ();
+        return rc;
     }
 
     class socket
